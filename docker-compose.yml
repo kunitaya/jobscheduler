@@ -1,0 +1,43 @@
+version: '2'
+services:
+
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: password!
+      MYSQL_DATABASE: scheduler
+      MYSQL_USER: scheduler
+      MYSQL_PASSWORD: Cgp75iXX
+      MYSQL_HOST: ""
+    volumes:
+      - ./dbdata:/var/lib/mysql
+
+  master:
+    image: kunitaya/jobscheduler
+    environment:
+      MYSQL_DATABASE: scheduler
+      MYSQL_USER: scheduler
+      MYSQL_PASSWORD: Cgp75iXX
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+    ports:
+      - "4444:4444"
+      - "40444:40444"
+    depends_on:
+      - db
+    volumes:
+      - ./jobdata:/var/local/scheduler
+
+  joc:
+    image: kunitaya/joccockpit
+    environment:
+      MYSQL_DATABASE: scheduler
+      MYSQL_USER: scheduler
+      MYSQL_PASSWORD: Cgp75iXX
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+    ports:
+      - "4446:4446"
+      - "40446:40446"
+    depends_on:
+      - db
