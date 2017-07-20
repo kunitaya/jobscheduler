@@ -26,7 +26,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./jobdata:/var/local/scheduler
+      - ./jobdata:/var/local/scheduler/scheduler/config/live/
 
   joc:
     image: kunitaya/joccockpit
