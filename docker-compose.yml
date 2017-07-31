@@ -27,7 +27,8 @@ services:
     depends_on:
       - db
     volumes:
-      - ./jobdata:/var/local/scheduler/scheduler/config/live/
+      - ./jobdata:/var/local/scheduler/scheduler/config/live
+      - ./logs:/var/log/sos-berlin.com/jobscheduler/scheduler
 
   joc:
     image: kunitaya/joccockpit
